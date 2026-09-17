@@ -9,7 +9,6 @@
   const ctx=canvas.getContext("2d",{alpha:true});
   if(!ctx)return;
 
-  const reduce=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
   const stars=[];
   const pointer={x:-9999,y:-9999,active:false};
   let dpr=1,w=0,h=0,worldH=0,raf=0,resizeTimer=0,initialized=false;
@@ -23,8 +22,7 @@
       r,a,gold,phase,
       speed:6+Math.random()*5,
       sway:3.5+Math.random()*5,
-      swaySpeed:0.00022+Math.random()*0.00016,
-      parallax:0.010+Math.random()*0.010
+      swaySpeed:0.00022+Math.random()*0.00016
     });
   }
 
@@ -84,27 +82,28 @@
 
     for(const s of stars){
       const wave=flowTime*s.swaySpeed+s.phase;
-      const driftX=(flowTime*0.001*s.speed)+(Math.sin(wave)*s.sway);
+      const driftX=-(flowTime*0.001*s.speed)+(Math.sin(wave)*s.sway);
       const driftY=Math.sin(wave*0.78+s.phase*0.35)*s.sway*0.36;
-      const worldX=s.ox+driftX;
+
+      /* Wrap at the actual viewport edges, not at the center.
+         The previous centered modulo made stars pop out halfway across the page. */
+      const rawX=s.ox+driftX;
+      const worldX=((rawX%w)+w)%w;
       const worldY=s.oy+driftY;
       const viewX=worldX;
       const viewY=worldY-scrollSmooth;
 
-      const wrappedX=((viewX+w*0.5)%w+w)%w-w*0.5;
-      const wrappedY=((viewY+h*0.5)%h+h)%h-h*0.5;
-
-      const dx=wrappedX-pointer.x;
-      const dy=wrappedY-pointer.y;
+      const dx=viewX-pointer.x;
+      const dy=viewY-pointer.y;
       const dist=Math.hypot(dx,dy);
       if(pointer.active&&dist<radius&&dist>0.001){
         const force=1-dist/radius;
         const eased=force*force*(3-2*force);
-        s.tx=wrappedX+(dx/dist)*eased*maxDisplacement;
-        s.ty=wrappedY+(dy/dist)*eased*maxDisplacement;
+        s.tx=viewX+(dx/dist)*eased*maxDisplacement;
+        s.ty=viewY+(dy/dist)*eased*maxDisplacement;
       }else{
-        s.tx=wrappedX;
-        s.ty=wrappedY;
+        s.tx=viewX;
+        s.ty=viewY;
       }
     }
   }
