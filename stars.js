@@ -31,8 +31,8 @@
     const mobile=window.innerWidth<700;
     const area=w*Math.max(worldH,h);
     const count=mobile
-      ? Math.max(360,Math.min(700,Math.floor(area/5200)))
-      : Math.max(480,Math.min(900,Math.floor(area/4700)));
+      ? Math.max(280,Math.min(600,Math.floor(area/6000)))
+      : Math.max(380,Math.min(800,Math.floor(area/5600)));
 
     for(let i=0;i<count;i++){
       const roll=Math.random();
