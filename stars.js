@@ -1,6 +1,6 @@
 /* DEWIFY — smooth interactive starfield
-   Continuous frame loop keeps motion fluid during scroll on mobile.
-   One lightweight canvas, no images, no blur filters.
+   Continuous frame loop with slow cloud-like drift.
+   Repulsion stays interactive while the stars gently travel even when idle.
 */
 (function(){
   "use strict";
@@ -14,11 +14,18 @@
   const pointer={x:-9999,y:-9999,active:false};
   let dpr=1,w=0,h=0,raf=0,resizeTimer=0,initialized=false;
   let scrollTarget=0,scrollSmooth=0,lastTime=0;
+  let flowTime=0;
 
   function addStar(x,y,r,a,gold){
+    const phase=Math.random()*Math.PI*2;
+    const layer=Math.random();
     stars.push({
       x,y,ox:x,oy:y,tx:x,ty:y,cx:x,cy:y,
-      r,a,gold,parallax:0.018+Math.random()*0.018
+      r,a,gold,phase,layer,
+      speed:4.5+Math.random()*3.5,
+      sway:3+Math.random()*5,
+      swaySpeed:0.00022+Math.random()*0.00016,
+      parallax:0.012+Math.random()*0.012
     });
   }
 
@@ -44,21 +51,34 @@
     }
   }
 
-  function updateTargets(){
+  function updateTargets(dt){
     const radius=145;
     const maxDisplacement=18;
+    flowTime+=dt;
+
     for(const s of stars){
-      const baseY=s.oy+scrollSmooth*s.parallax;
-      const dx=s.ox-pointer.x,dy=baseY-pointer.y;
+      /* A shared slow flow makes the stars feel like one drifting field,
+         while tiny phase differences keep them from moving in lockstep. */
+      const wave=flowTime*s.swaySpeed+s.phase;
+      const driftX=(flowTime*0.001*s.speed)+(Math.sin(wave)*s.sway);
+      const driftY=Math.sin(wave*0.78+s.phase*0.35)*s.sway*0.36;
+      const baseX=s.ox+driftX;
+      const baseY=s.oy+driftY+scrollSmooth*s.parallax;
+
+      /* Wrap gently so the field never reaches an empty edge. */
+      const bx=((baseX+w*0.5)%w+w)%w-w*0.5;
+      const by=((baseY+h*0.5)%h+h)%h-h*0.5;
+
+      const dx=bx-pointer.x,dy=by-pointer.y;
       const dist=Math.hypot(dx,dy);
       if(pointer.active&&dist<radius&&dist>0.001){
         const force=1-dist/radius;
         const eased=force*force*(3-2*force);
-        s.tx=s.ox+(dx/dist)*eased*maxDisplacement;
-        s.ty=baseY+(dy/dist)*eased*maxDisplacement;
+        s.tx=bx+(dx/dist)*eased*maxDisplacement;
+        s.ty=by+(dy/dist)*eased*maxDisplacement;
       }else{
-        s.tx=s.ox;
-        s.ty=baseY;
+        s.tx=bx;
+        s.ty=by;
       }
     }
   }
@@ -68,11 +88,11 @@
     lastTime=now;
 
     scrollSmooth+=(scrollTarget-scrollSmooth)*Math.min(1,dt*0.012);
-    updateTargets();
+    updateTargets(dt);
 
     ctx.clearRect(0,0,w,h);
     for(const s of stars){
-      const smoothing=1-Math.pow(0.0005,dt/16.7);
+      const smoothing=1-Math.pow(0.0008,dt/16.7);
       s.cx+=(s.tx-s.cx)*smoothing;
       s.cy+=(s.ty-s.cy)*smoothing;
       ctx.globalAlpha=s.a;
@@ -96,7 +116,10 @@
     ctx.setTransform(dpr,0,0,dpr,0,0);
     repositionForResize(oldW,oldH);
     initialized=true;
-    if(!raf)raf=requestAnimationFrame(draw);
+    if(!raf){
+      lastTime=performance.now();
+      raf=requestAnimationFrame(draw);
+    }
   }
 
   function size(){
