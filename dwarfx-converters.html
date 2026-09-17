@@ -10,80 +10,28 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="stylesheet" href="dwarfx-converter.css">
+<link rel="stylesheet" href="dwarfx-converter.css?v=4">
+<style>.brand-logo,.brand-logo img{width:86px;height:86px;border:0;background:transparent;object-fit:contain;display:block}@media(max-width:600px){.nav{height:76px}.brand-logo,.brand-logo img{width:70px;height:70px}}</style>
 <title>DwarfX Converters</title>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"DwarfX Converters","url":"https://dewify.shop/dwarfx-converters.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","description":"Simple browser-based file converters and utilities from DwarfX.","publisher":{"@type":"Organization","name":"DwarfX"}}</script>
 </head>
 <body>
 <header>
   <nav class="shell nav" aria-label="Primary navigation">
-    <a class="brand" href="index.html">
-      <span class="brand-logo"><img src="clogo.png" alt="DwarfX Converters"></span>
-      <span>DwarfX Converters</span>
-    </a>
+    <a class="brand" href="index.html"><span class="brand-logo"><img src="clogo.png" alt="DwarfX Converters"></span><span>DwarfX Converters</span></a>
     <div class="nav-links"><span class="status"><i></i> On-device</span><a href="index.html">DEWIFY</a></div>
   </nav>
 </header>
 <main class="shell">
-  <section class="hero simple-hero">
-    <p class="eyebrow">DWARFX UTILITY</p>
-    <h1>Convert files.<br><span>Simple.</span></h1>
-    <p class="hero-copy">Drop a file, choose what you need, and download the result.</p>
-  </section>
-
+  <section class="hero simple-hero"><p class="eyebrow">DWARFX UTILITY</p><h1>Convert files.<br><span>Simple.</span></h1><p class="hero-copy">Drop a file, choose what you need, and download the result.</p></section>
   <section class="workspace" aria-label="Converter workspace">
-    <div class="workspace-top">
-      <div><div class="workspace-title">1. Add a file</div><div class="workspace-count" id="fileCount">0 files</div></div>
-      <button class="btn small secondary" id="clearFiles" type="button">Clear</button>
-    </div>
-    <div class="dropzone">
-      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose or drop files">
-        <div class="drop-symbol">↑</div>
-        <h2>Drop your file here</h2>
-        <p>or choose from your device</p>
-        <div class="actions">
-          <button class="btn" id="pick" type="button">Choose file</button>
-          <button class="btn secondary" id="remoteToggle" type="button">Use URL</button>
-          <input id="fileInput" type="file" hidden multiple accept="image/*,.json,.csv,.tsv,.txt,.xml,.html,.md,.css,.js">
-        </div>
-      </div>
-      <div class="remote" id="remote">
-        <div class="remote-row"><input id="remoteUrl" type="url" inputmode="url" placeholder="Paste a direct file URL…" aria-label="Direct file URL"><button class="btn" id="remoteImport" type="button">Import</button></div>
-        <div class="remote-note">A regular MediaFire share/view link may not import directly in a browser. A direct file URL is required when the host permits cross-origin access.</div>
-        <div class="remote-note" id="remoteStatus"></div>
-      </div>
-    </div>
+    <div class="workspace-top"><div><div class="workspace-title">1. Add a file</div><div class="workspace-count" id="fileCount">0 files</div></div><button class="btn small secondary" id="clearFiles" type="button">Clear</button></div>
+    <div class="dropzone"><div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose or drop files"><div class="drop-symbol">↑</div><h2>Drop your file here</h2><p>or choose from your device</p><div class="actions"><button class="btn" id="pick" type="button">Choose file</button><button class="btn secondary" id="remoteToggle" type="button">Use URL</button><input id="fileInput" type="file" hidden multiple accept="image/*,.json,.csv,.tsv,.txt,.xml,.html,.md,.css,.js"></div></div><div class="remote" id="remote"><div class="remote-row"><input id="remoteUrl" type="url" inputmode="url" placeholder="Paste a direct file URL…" aria-label="Direct file URL"><button class="btn" id="remoteImport" type="button">Import</button></div><div class="remote-note">A regular MediaFire share/view link may not import directly in a browser. A direct file URL is required when the host permits cross-origin access.</div><div class="remote-note" id="remoteStatus"></div></div></div>
     <div class="file-list" id="fileList"><div class="empty">Your file will appear here.</div></div>
   </section>
-
-  <section class="tools" aria-label="Tools">
-    <div class="section-top">
-      <div><div class="step-label">2. Choose what you need</div><p class="section-copy">Common tools are shown below. Use More tools only when you need them.</p></div>
-      <button class="btn small secondary" id="moreTools" type="button" aria-expanded="false">More tools</button>
-    </div>
-    <div class="search-row compact-tools" id="toolSearchRow" hidden>
-      <input class="field" id="search" type="search" placeholder="Search tools…" aria-label="Search tools">
-      <select class="select" id="category" aria-label="Filter tools"><option value="All">All</option><option value="Images">Images</option><option value="Data">Data</option><option value="Text">Text</option><option value="Utilities">Utilities</option></select>
-    </div>
-    <div class="quick" id="quick" hidden><button class="active" data-cat="All" type="button">All tools</button></div>
-    <div class="cards" id="toolsGrid"></div>
-    <div class="notice"><strong>Private:</strong> supported conversions run in your browser. Your file is not uploaded to a DwarfX conversion server.</div>
-  </section>
-
-  <section class="results" id="results" hidden>
-    <div class="results-head"><strong id="resultsTitle">Ready to download</strong><div class="actions"><button class="btn small secondary" id="clearResults" type="button">Close</button><button class="btn small" id="downloadAll" type="button">Download all</button></div></div>
-    <div id="resultsList"></div>
-  </section>
-
+  <section class="tools" aria-label="Tools"><div class="section-top"><div><div class="step-label">2. Choose what you need</div><p class="section-copy">Common tools are shown below. Use More tools only when you need them.</p></div><button class="btn small secondary" id="moreTools" type="button" aria-expanded="false">More tools</button></div><div class="search-row compact-tools" id="toolSearchRow" hidden><input class="field" id="search" type="search" placeholder="Search tools…" aria-label="Search tools"><select class="select" id="category" aria-label="Filter tools"><option value="All">All</option><option value="Images">Images</option><option value="Data">Data</option><option value="Text">Text</option><option value="Utilities">Utilities</option></select></div><div class="quick" id="quick" hidden><button class="active" data-cat="All" type="button">All tools</button></div><div class="cards" id="toolsGrid"></div><div class="notice"><strong>Private:</strong> supported conversions run in your browser. Your file is not uploaded to a DwarfX conversion server.</div></section>
+  <section class="results" id="results" hidden><div class="results-head"><strong id="resultsTitle">Ready to download</strong><div class="actions"><button class="btn small secondary" id="clearResults" type="button">Close</button><button class="btn small" id="downloadAll" type="button">Download all</button></div></div><div id="resultsList"></div></section>
   <footer class="footer"><span>© <span id="year"></span> DwarfX / DEWIFY</span><a href="index.html">Back to DEWIFY</a></footer>
 </main>
-<script defer src="dwarfx-converter.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded',()=>{
-  const more=document.getElementById('moreTools'),grid=document.getElementById('toolsGrid'),search=document.getElementById('toolSearchRow');
-  const setExpanded=on=>{more.setAttribute('aria-expanded',String(on));more.textContent=on?'Hide extra tools':'More tools';search.hidden=!on;grid.classList.toggle('show-all',on)};
-  more.addEventListener('click',()=>setExpanded(more.getAttribute('aria-expanded')!=='true'));
-});
-</script>
-</body>
-</html>
+<script defer src="dwarfx-converter.js?v=4"></script><script>document.addEventListener('DOMContentLoaded',()=>{const more=document.getElementById('moreTools'),grid=document.getElementById('toolsGrid'),search=document.getElementById('toolSearchRow');const setExpanded=on=>{more.setAttribute('aria-expanded',String(on));more.textContent=on?'Hide extra tools':'More tools';search.hidden=!on;grid.classList.toggle('show-all',on)};more.addEventListener('click',()=>setExpanded(more.getAttribute('aria-expanded')!=='true'))});</script>
+</body></html>
