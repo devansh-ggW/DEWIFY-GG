@@ -1,6 +1,6 @@
 /* DEWIFY — smooth interactive starfield
    Continuous frame loop with slow cloud-like drift.
-   Repulsion stays interactive while the stars gently travel even when idle.
+   Mixed star brightness, gentle size variation, and interactive repulsion.
 */
 (function(){
   "use strict";
@@ -18,12 +18,11 @@
 
   function addStar(x,y,r,a,gold){
     const phase=Math.random()*Math.PI*2;
-    const layer=Math.random();
     stars.push({
       x,y,ox:x,oy:y,tx:x,ty:y,cx:x,cy:y,
-      r,a,gold,phase,layer,
-      speed:4.5+Math.random()*3.5,
-      sway:3+Math.random()*5,
+      r,a,gold,phase,
+      speed:6+Math.random()*4,
+      sway:3.5+Math.random()*4.5,
       swaySpeed:0.00022+Math.random()*0.00016,
       parallax:0.012+Math.random()*0.012
     });
@@ -33,11 +32,27 @@
     stars.length=0;
     const mobile=window.innerWidth<700;
     const count=mobile
-      ? Math.max(110,Math.min(155,Math.floor((w*h)/8500)))
-      : Math.max(145,Math.min(205,Math.floor((w*h)/7300)));
+      ? Math.max(145,Math.min(190,Math.floor((w*h)/7000)))
+      : Math.max(185,Math.min(255,Math.floor((w*h)/6000)));
+
     for(let i=0;i<count;i++){
-      const r=0.72+Math.random()*0.58;
-      const a=0.56+Math.random()*0.30;
+      const roll=Math.random();
+      let r,a;
+
+      if(roll<0.13){
+        // A few brighter, slightly larger stars.
+        r=0.95+Math.random()*0.52;
+        a=0.82+Math.random()*0.16;
+      }else if(roll<0.33){
+        // A few dimmer stars for depth.
+        r=0.50+Math.random()*0.34;
+        a=0.24+Math.random()*0.21;
+      }else{
+        // Most stay close to the existing look.
+        r=0.72+Math.random()*0.58;
+        a=0.56+Math.random()*0.30;
+      }
+
       addStar(Math.random()*w,Math.random()*h,r,a,Math.random()<.72);
     }
   }
@@ -57,15 +72,14 @@
     flowTime+=dt;
 
     for(const s of stars){
-      /* A shared slow flow makes the stars feel like one drifting field,
-         while tiny phase differences keep them from moving in lockstep. */
+      /* Shared slow flow + different phases = natural cloud-like movement. */
       const wave=flowTime*s.swaySpeed+s.phase;
       const driftX=(flowTime*0.001*s.speed)+(Math.sin(wave)*s.sway);
       const driftY=Math.sin(wave*0.78+s.phase*0.35)*s.sway*0.36;
       const baseX=s.ox+driftX;
       const baseY=s.oy+driftY+scrollSmooth*s.parallax;
 
-      /* Wrap gently so the field never reaches an empty edge. */
+      /* Wrap the moving field so it never develops empty edges. */
       const bx=((baseX+w*0.5)%w+w)%w-w*0.5;
       const by=((baseY+h*0.5)%h+h)%h-h*0.5;
 
