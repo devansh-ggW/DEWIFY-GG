@@ -1,6 +1,6 @@
 /* DEWIFY — smooth interactive starfield
    Continuous frame loop with slow cloud-like drift.
-   More bright stars, layered brightness, and interactive repulsion.
+   More stars, mixed brightness, gentle size variation, and interactive repulsion.
 */
 (function(){
   "use strict";
@@ -32,23 +32,23 @@
     stars.length=0;
     const mobile=window.innerWidth<700;
     const count=mobile
-      ? Math.max(145,Math.min(190,Math.floor((w*h)/7000)))
-      : Math.max(185,Math.min(255,Math.floor((w*h)/6000)));
+      ? Math.max(185,Math.min(260,Math.floor((w*h)/5200)))
+      : Math.max(235,Math.min(330,Math.floor((w*h)/4700)));
 
     for(let i=0;i<count;i++){
       const roll=Math.random();
       let r,a;
 
       if(roll<0.24){
-        // More bright stars for a richer night-sky look.
+        // More bright stars spread throughout the field.
         r=0.95+Math.random()*0.52;
         a=0.82+Math.random()*0.16;
-      }else if(roll<0.39){
-        // Dimmer stars add depth.
+      }else if(roll<0.44){
+        // Dim stars add depth.
         r=0.50+Math.random()*0.34;
         a=0.24+Math.random()*0.21;
       }else{
-        // Keep the original balanced star look for the majority.
+        // The rest keep the normal star appearance.
         r=0.72+Math.random()*0.58;
         a=0.56+Math.random()*0.30;
       }
@@ -72,14 +72,12 @@
     flowTime+=dt;
 
     for(const s of stars){
-      /* Shared slow flow + different phases = natural cloud-like movement. */
       const wave=flowTime*s.swaySpeed+s.phase;
       const driftX=(flowTime*0.001*s.speed)+(Math.sin(wave)*s.sway);
       const driftY=Math.sin(wave*0.78+s.phase*0.35)*s.sway*0.36;
       const baseX=s.ox+driftX;
       const baseY=s.oy+driftY+scrollSmooth*s.parallax;
 
-      /* Wrap the moving field so it never develops empty edges. */
       const bx=((baseX+w*0.5)%w+w)%w-w*0.5;
       const by=((baseY+h*0.5)%h+h)%h-h*0.5;
 
