@@ -10,12 +10,14 @@
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
-<link rel="stylesheet" href="dwarfx-converter.css?v=4">
+<link rel="stylesheet" href="dwarfx-converter.css?v=5">
+<link rel="stylesheet" href="stars.css">
 <style>.brand-logo,.brand-logo img{width:86px;height:86px;border:0;background:transparent;object-fit:contain;display:block}@media(max-width:600px){.nav{height:76px}.brand-logo,.brand-logo img{width:70px;height:70px}}</style>
 <title>DwarfX Converters</title>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"DwarfX Converters","url":"https://dewify.shop/dwarfx-converters.html","applicationCategory":"UtilitiesApplication","operatingSystem":"Web","description":"Simple browser-based file converters and utilities from DwarfX.","publisher":{"@type":"Organization","name":"DwarfX"}}</script>
 </head>
 <body>
+<canvas id="starfield" aria-hidden="true"></canvas>
 <header>
   <nav class="shell nav" aria-label="Primary navigation">
     <a class="brand" href="index.html"><span class="brand-logo"><img src="clogo.png" alt="DwarfX Converters"></span><span>DwarfX Converters</span></a>
@@ -34,4 +36,5 @@
   <footer class="footer"><span>© <span id="year"></span> DwarfX / DEWIFY</span><a href="index.html">Back to DEWIFY</a></footer>
 </main>
 <script defer src="dwarfx-converter.js?v=4"></script><script>document.addEventListener('DOMContentLoaded',()=>{const more=document.getElementById('moreTools'),grid=document.getElementById('toolsGrid'),search=document.getElementById('toolSearchRow');const setExpanded=on=>{more.setAttribute('aria-expanded',String(on));more.textContent=on?'Hide extra tools':'More tools';search.hidden=!on;grid.classList.toggle('show-all',on)};more.addEventListener('click',()=>setExpanded(more.getAttribute('aria-expanded')!=='true'))});</script>
+<script defer src="stars.js?v=6"></script>
 </body></html>
