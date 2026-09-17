@@ -1,0 +1,11 @@
+{
+  "name": "DEWIFY — Digital Products",
+  "short_name": "DEWIFY",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "icons": [
+    {"src": "/favicon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
