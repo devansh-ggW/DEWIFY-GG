@@ -1,6 +1,6 @@
 /* DEWIFY — smooth interactive starfield
    Continuous frame loop with slow cloud-like drift.
-   Mixed star brightness, gentle size variation, and interactive repulsion.
+   More bright stars, layered brightness, and interactive repulsion.
 */
 (function(){
   "use strict";
@@ -39,16 +39,16 @@
       const roll=Math.random();
       let r,a;
 
-      if(roll<0.13){
-        // A few brighter, slightly larger stars.
+      if(roll<0.24){
+        // More bright stars for a richer night-sky look.
         r=0.95+Math.random()*0.52;
         a=0.82+Math.random()*0.16;
-      }else if(roll<0.33){
-        // A few dimmer stars for depth.
+      }else if(roll<0.39){
+        // Dimmer stars add depth.
         r=0.50+Math.random()*0.34;
         a=0.24+Math.random()*0.21;
       }else{
-        // Most stay close to the existing look.
+        // Keep the original balanced star look for the majority.
         r=0.72+Math.random()*0.58;
         a=0.56+Math.random()*0.30;
       }
