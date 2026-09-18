@@ -25,8 +25,8 @@ h1{font-size:clamp(46px,8vw,92px);line-height:.9;letter-spacing:-.075em;margin:1
 .product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .product-card{border:1px solid rgba(243,241,235,.14);background:rgba(11,11,11,.72);border-radius:22px;overflow:hidden;transition:transform .2s ease,border-color .2s ease,background .2s ease;cursor:pointer}
 .product-card:hover{transform:translateY(-5px);border-color:rgba(243,241,235,.34);background:rgba(18,18,18,.86)}
-.product-image{height:280px;padding:26px;display:grid;place-items:center;background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.07),transparent 62%)}
-.product-image img{width:100%;height:100%;object-fit:contain}
+.product-image{height:280px;padding:14px;display:grid;place-items:center;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.10),transparent 68%),linear-gradient(135deg,rgba(255,255,255,.025),rgba(0,0,0,.28))}
+.product-image img{width:100%;height:100%;object-fit:cover;border-radius:14px;box-shadow:0 18px 40px rgba(0,0,0,.28)}
 .product-body{padding:20px}
 .product-number{font-size:9px;letter-spacing:.16em;color:#77746d;text-transform:uppercase}
 .product-title{font-size:22px;line-height:1.03;letter-spacing:-.045em;margin:10px 0 10px;color:#f3f1eb}
@@ -40,7 +40,7 @@ h1{font-size:clamp(46px,8vw,92px);line-height:.9;letter-spacing:-.075em;margin:1
 .modal-close{position:absolute;top:16px;right:18px;width:38px;height:38px;border:1px solid rgba(243,241,235,.18);border-radius:50%;background:#111;color:#f3f1eb;font-size:20px;cursor:pointer}
 .modal-content{display:grid;grid-template-columns:42% 58%;min-height:500px}
 .modal-media{display:grid;place-items:center;padding:38px;background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.08),transparent 65%)}
-.modal-media img{width:100%;height:380px;object-fit:contain}
+.modal-media img{width:100%;height:380px;object-fit:cover;border-radius:16px}
 .modal-info{padding:48px 42px 42px}
 .modal-kicker{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#77746d}
 .modal-info h2{font-size:clamp(32px,5vw,58px);line-height:.94;letter-spacing:-.065em;margin:12px 0 18px;color:#f3f1eb}
@@ -100,7 +100,7 @@ const products = [
   {
     title:"Xech Digital Clock + Ambient Light",
     price:"₹469",
-    image:"https://xech.com/cdn/shop/files/xech-pen-stand-with-digital-clock-smartphone-holder--nova-digital-1500x1500_1.jpg?v=1775214731&width=1200&format=webp",
+    image:"https://xech.com/cdn/shop/files/xech-pen-stand-with-digital-clock-smartphone-holder--nova-digital-1500x1500_1.jpg?v=1775214731&width=1946",
     description:"A compact digital clock, pen stand and mobile holder with three-colour ambient lighting. A useful desk accessory for boys and girls, study spaces or bedside tables.",
     info:"The Xech Nova Digital combines a digital clock, pen stand and mobile holder with touch-controlled three-colour ambient lighting in a compact rechargeable design.",
     amazon:"https://www.amazon.in/Xech-Digital-Ambient-3-Colour-Rechargeable/dp/B0GD7DSJZK?crid=33OCEOJ3R8DP9&dib=eyJ2IjoiMSJ9.29PNp_61ZVPAj6AdnNmJU3LcNT0dRvbFMe3TW-iv8F8Wq0c_KyCVsCTEbpQXv7ws2O5xIRIo4k8WZWMRlQPaj4i5SpRTnRJfB_pgii8t-lCOKTwVkjqEMEfN-A5Yp7AqArkKhuO2h4b4_me1rhWjQN9ZSShoe7Hxhj8WIZ4BW4yGYc2mrZ1qvVi6OhjWl8_Rj9BpeCXLNaK5ilM-PwrlGVXh89nVbJ7S7pNJp6QESJsNYdPzStxvXuwmUpGwKpze3jlmGVFuXR8XXw7ztqGQqHC1A0LH2eN385c8aoulqfs._Zb4F_nX9U4hL5EeDWIXkR1TIyP85zIEjA_DcsBNJqM&dib_tag=se&keywords=COOL%2Bgadgets&qid=1789713640&sprefix=cool%2Bgadget%2Caps%2C284&sr=8-25&th=1&ascsubtag=srctok-04a88991f42c038b&btn_type=ss&btn_ref=srctok-04a88991f42c038b&linkCode=ll2&tag=cartnconnec09-21&linkId=37c7c73c39338c59c444415741d35ffd&ref_=as_li_ss_tl"
@@ -116,7 +116,7 @@ const products = [
   {
     title:"Buraq Astronaut Pet Backpack",
     price:"₹1,598",
-    image:"https://www.buraqpets.com/cdn/shop/files/bubble-cat-backpack-carrier-breathable-spacious-stylish-2895555.jpg?v=1774435676&width=1200&format=webp",
+    image:"https://www.buraqpets.com/cdn/shop/files/astronaut-pro-pet-carrier-backpack-breathable-travel-ready-4952496.jpg?v=1755954339&width=1946",
     description:"An expandable astronaut-style pet carrier with a clear bubble window, ventilation and a portable backpack design.",
     info:"The Buraq Astronaut Pet Backpack is shown as a single product in the catalog. Continue to Amazon to check the currently available color/options.",
     amazon:"https://www.amazon.in/gp/aw/d/B0BGFKHTMC?pd_rd_plhdr=t&hsa_cr_id=0&qid=1789714194&sr=1-1-9fd4e6c6-0f32-411b-9abc-dfd97dd0cadd&i=aps&aref=lKBLpGpKiS&_encoding=UTF8&pd_rd_w=XOXej&content-id=amzn1.sym.1183c3aa-8812-4b69-b5a0-47d783e4595d%3Aamzn1.sym.1183c3aa-8812-4b69-b5a0-47d783e4595d&pf_rd_p=1183c3aa-8812-4b69-b5a0-47d783e4595d&pf_rd_r=D08RX0J8MYFP1ADZSW6N&pd_rd_wg=twjGh&pd_rd_r=13bdd49a-de28-4779-a280-6ceeff7ef52c&th=1&linkCode=ll2&tag=cartnconnec09-21&linkId=22fab15fc1654cadbfb7b4917ab5cb6a&ref_=as_li_ss_tl"
@@ -124,7 +124,7 @@ const products = [
   {
     title:"InstaCuppa 6-Compartment Grain Dispenser",
     price:"₹2,497",
-    image:"https://instacuppastore.com/cdn/shop/files/InstaCuppa-Grain-Dispenser_-6-Grid-Rotatable-Dry-Food-Storage-Container_-500g-Capacity-72343448.jpg?v=1756388728&width=1200&format=webp",
+    image:"https://instacuppastore.com/cdn/shop/files/InstaCuppa-Rotating-Grain-Dispenser-for-Kitchen-_-6-Compartment-Airtight-Storage-Container-for-Rice_-Dal-_-Pulses-_-BPA-Free-Plastic-_-Single-Button-Dispensing-_-360o-Rotation-_-6-Kgs-Capac-117742113.jpg?v=1767361121&width=1946",
     description:"A rotating six-compartment airtight dispenser for rice, pulses and cereals, with one-button dispensing.",
     info:"The InstaCuppa dispenser stores up to 6 kg across six compartments and uses a 360° rotating base with single-button dispensing for quick access.",
     amazon:"https://www.amazon.in/InstaCuppa-Dispenser-Compartment-Single-Button-Dispensing/dp/B0FMYSP1VG?crid=2Y7DOC3EMNGE3&dib=eyJ2IjoiMSJ9.Vlft-n29MLzoux2voSCVOC9JvAVLLR6xYyIzTwg0ueiLE4hIAd63EZP2uLUVhcsRLos8M48WDPW99oZnAJ02pPWR44f1ny2nLVQL2BryBP2fNXif8qa5_uOMu3DSh2eMWnhnUmryTyCl94nePIaJnHsfmhqNTLd878_XsNoMx88aZUyTV_SYNO3xk7NCOEelyS26e6KipuPx2nscnOPfTuk7IMW3OwR1a_a9muH11Q7x4FB4amidGKIkkwlD0lNowFCJbgKdGHiL5f45aatvtD6mjD0RloXkBai_th0bcc.V4ojeQJNBWd7KTQrZKci1VX2XIfFd1GDWyJPbL6M3ZQ&dib_tag=se&keywords=kitchen&qid=1789714340&sprefix=kitche%2Caps%2C351&sr=8-14-spons&aref=4atUbhwTxN&sp_csd=d2lkZ2V0TmFtZT1zcF9tdGY&psc=1&ascsubtag=srctok-11a5ef07741435fd&btn_type=ss&btn_ref=srctok-11a5ef07741435fd&linkCode=ll2&tag=cartnconnec09-21&linkId=7132c50653728d10&ref_=as_li_ss_tl"
