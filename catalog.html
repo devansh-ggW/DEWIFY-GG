@@ -44,7 +44,7 @@ h1{font-size:clamp(46px,8vw,92px);line-height:.9;letter-spacing:-.075em;margin:1
 .modal-info{padding:48px 42px 42px}
 .modal-kicker{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#77746d}
 .modal-info h2{font-size:clamp(32px,5vw,58px);line-height:.94;letter-spacing:-.065em;margin:12px 0 18px;color:#f3f1eb}
-.modal-info p{font-size:14px;line-height:1.75;color:#aaa79f}
+.modal-info p{font-size:14px;line-height:1.75;color:#aaa79f}.modal-specs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:20px 0}.modal-spec{padding:11px 12px;border:1px solid rgba(243,241,235,.12);border-radius:12px;background:#101010}.modal-spec b{display:block;color:#f3f1eb;font-size:10px;letter-spacing:.08em;margin-bottom:4px}.modal-spec span{display:block;color:#77746d;font-size:9px;line-height:1.35}
 .modal-price{font-size:26px;font-weight:800;color:#f3f1eb;margin:26px 0 20px}
 .buy{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:16px 18px;border:1px solid rgba(243,241,235,.45);background:#f3f1eb;color:#080808;font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:transform .15s ease,background .15s ease}
 .buy:hover{transform:translateY(-2px);background:#fff}
@@ -82,11 +82,11 @@ h1{font-size:clamp(46px,8vw,92px);line-height:.9;letter-spacing:-.075em;margin:1
 <div class="modal-info">
 <div class="modal-kicker" id="modalKicker"></div>
 <h2 id="modalTitle"></h2>
-<p id="modalDescription"></p>
+<p id="modalDescription"></p><div class="modal-specs" id="modalSpecs"></div>
 <div class="modal-price" id="modalPrice"></div>
 <a class="buy id="modalBuy" href="#" target="_blank" rel="sponsored noopener noreferrer" aria-label="Buy on Amazon">
 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 6.5h14l-1 8H6l-1-8Z"/><path d="M8 6.5 9 3h6l1 3.5"/><circle cx="9" cy="18.5" r="1.2"/><circle cx="16" cy="18.5" r="1.2"/></svg>
-<span>BUY ON AMAZON</span>
+<span>BUY ON AMAZON →</span>
 </a>
 <p class="modal-note">Price and availability can change on Amazon. Check the Amazon product page for the latest offer.</p>
 </div>
@@ -99,7 +99,7 @@ h1{font-size:clamp(46px,8vw,92px);line-height:.9;letter-spacing:-.075em;margin:1
 const products = [
   {
     title:"Xech Digital Clock + Ambient Light",
-    price:"₹469",
+    price:"₹496",
     image:"https://xech.com/cdn/shop/files/xech-pen-stand-with-digital-clock-smartphone-holder--nova-digital-1500x1500_1.jpg?v=1775214731&width=1946",
     description:"A compact digital clock, pen stand and mobile holder with three-colour ambient lighting. A useful desk accessory for boys and girls, study spaces or bedside tables.",
     specs:["3 LIGHT MODES","TOUCH DIMMING","RECHARGEABLE","PHONE HOLDER"],
@@ -160,6 +160,7 @@ const modalImage=document.getElementById('modalImage');
 const modalKicker=document.getElementById('modalKicker');
 const modalTitle=document.getElementById('modalTitle');
 const modalDescription=document.getElementById('modalDescription');
+const modalSpecs=document.getElementById('modalSpecs');
 const modalPrice=document.getElementById('modalPrice');
 const modalBuy=document.getElementById('modalBuy');
 
@@ -182,6 +183,7 @@ function openProduct(index){
   modalKicker.textContent='DEWIFY / AMAZON PICK';
   modalTitle.textContent=p.title;
   modalDescription.textContent=p.info;
+  modalSpecs.innerHTML=(p.specs||[]).map((spec,i)=>`<div class="modal-spec"><b>${spec}</b><span>PRODUCT SPEC</span></div>`).join("");
   modalPrice.textContent=p.price;
   modalBuy.href=p.amazon;
   modal.classList.add('open');
