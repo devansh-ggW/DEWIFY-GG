@@ -1,73 +1,39 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#080808">
-<meta name="description" content="DEWIFY — digital software and games from DwarfX.">
+<meta name="description" content="DEWIFY — digital products.">
 <meta name="application-name" content="DEWIFY">
 <link rel="icon" href="favicon.ico" type="image/x-icon">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <link rel="manifest" href="site.webmanifest">
 <meta property="og:type" content="website">
-<meta property="og:title" content="DEWIFY — Digital Products & Games">
-<meta property="og:description" content="Digital software, web tools and games from DwarfX.">
+<meta property="og:title" content="DEWIFY">
+<meta property="og:description" content="DEWIFY — digital products.">
 <meta property="og:url" content="https://dewify.shop/">
 <meta property="og:site_name" content="DEWIFY">
 <meta property="og:image" content="https://dewify.shop/apple-touch-icon.png">
-<link rel="stylesheet" href="styles.css?v=8">
-<link rel="stylesheet" href="stars.css">
-<title>DEWIFY — Digital Products & Games</title>
+<title>DEWIFY</title>
+<style>
+:root{--bg:#080808;--text:#f3f1eb;--muted:#8d8b86;--line:rgba(243,241,235,.14)}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+body{min-height:100vh;display:grid;place-items:center;overflow:hidden}
+#starfield{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main{position:relative;z-index:1;text-align:center;padding:32px}
+.brand{font-size:clamp(48px,10vw,110px);font-weight:800;letter-spacing:-.08em;line-height:.9}
+.status{margin-top:24px;color:var(--muted);font-size:11px;letter-spacing:.2em;text-transform:uppercase}
+</style>
 </head>
 <body>
 <canvas id="starfield" aria-hidden="true"></canvas>
-<header class="site-header">
-  <nav class="nav container" aria-label="Primary navigation">
-    <a class="brand" href="index.html">DEWIFY</a>
-    <div class="nav-links">
-      <a href="software.html">Software</a>
-      <a href="games.html">Games</a>
-      <a href="#about">About</a>
-      <a href="terms.html">Terms</a>
-    </div>
-    <a class="nav-cta" href="#explore">Explore</a>
-  </nav>
-</header>
-<main id="top">
-  <section class="hero container">
-    <div class="hero-copy">
-      <p class="eyebrow">DWARFX / DEWIFY / DIGITAL</p>
-      <h1 class="hero-title">DIGITAL<br><span>MADE</span><br>SIMPLE.</h1>
-      <div class="hero-bottom">
-        <p>Software, browser tools and games from DwarfX.<br><br><strong style="color:var(--text)">DEWIFY is a DwarfX company.</strong></p>
-        <a class="button button-light" href="#explore">Explore <span>↘</span></a>
-      </div>
-    </div>
-  </section>
-  <section class="ticker" aria-label="DEWIFY highlights">
-    <div class="ticker-track"><span>DEWIFY</span><i>—</i><span>DWARFX COMPANY</span><i>—</i><span>SOFTWARE</span><i>—</i><span>GAMES</span><i>—</i><span>PC</span><i>—</i><span>ANDROID</span><i>—</i><span>WEB</span><i>—</i><span>DEWIFY</span><i>—</i><span>DWARFX COMPANY</span><i>—</i><span>SOFTWARE</span><i>—</i><span>GAMES</span><i>—</i><span>PC</span><i>—</i><span>ANDROID</span><i>—</i><span>WEB</span><i>—</i></div>
-  </section>
-  <section class="section collection container" id="explore">
-    <div class="section-heading"><div><p class="eyebrow">EXPLORE DEWIFY</p><h2>Choose your lane.</h2></div><p class="section-note">The home page stays focused. Open a dedicated section to browse everything inside it.</p></div>
-    <div class="collection-grid">
-      <a class="collection-card" href="software.html"><div><span class="card-index">01</span><p class="eyebrow">PC / ANDROID / WEB</p><h3>Software</h3><p>Browse desktop software, Android apps and browser utilities by platform.</p></div><span class="collection-arrow">↘</span></a>
-      <a class="collection-card" href="games.html"><div><span class="card-index">02</span><p class="eyebrow">2D / 3D / GENRES</p><h3>Games</h3><p>Enter the game library and choose between 2D and 3D worlds.</p></div><span class="collection-arrow">↘</span></a>
-    </div>
-  </section>
-  <section class="manifesto section" id="about">
-    <div class="container manifesto-inner"><p class="eyebrow">A DWARFX COMPANY / THE DEWIFY IDEA</p><h2>Less clutter.<br><em>More value.</em></h2><div class="manifesto-copy"><p>DEWIFY operates under its mother brand, DwarfX.</p><p>DEWIFY focuses on software, web tools and games that can be delivered digitally.</p><p>One clean storefront. Dedicated sections. Useful releases.</p></div></div>
-  </section>
-  <section class="section container" id="faq">
-    <div class="section-heading"><div><p class="eyebrow">NEED TO KNOW</p><h2>Questions, answered.</h2></div></div>
-    <div class="faq-list">
-      <details class="faq-item"><summary>What does DEWIFY sell?<span>+</span></summary><p>DEWIFY sells digital software, browser tools, games and downloadable products.</p></details>
-      <details class="faq-item"><summary>Who is behind DEWIFY?<span>+</span></summary><p>DEWIFY is a digital-products brand operating under DwarfX.</p></details>
-      <details class="faq-item"><summary>Where are the products?<span>+</span></summary><p>Software and games are organized into their own dedicated pages so the home page stays uncluttered.</p></details>
-    </div>
-  </section>
+<main>
+<div class="brand">DEWIFY</div>
+<div class="status">Coming soon</div>
 </main>
-<footer class="footer"><div class="container footer-inner"><a class="brand" href="index.html">DEWIFY</a><div class="footer-links"><a href="software.html">Software</a><a href="games.html">Games</a><a href="#about">About</a><a href="#faq">FAQ</a><a href="terms.html">Terms</a><a href="privacy.html">Privacy</a></div><p>© 2026 DEWIFY · A DwarfX company</p></div></footer>
-<script defer src="stars.js?v=5"></script>
+<script defer src="stars.js?v=6"></script>
 </body>
 </html>
