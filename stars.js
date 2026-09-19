@@ -63,7 +63,7 @@
       if(y<-3||y>h+3)continue;
       ctx.globalAlpha=s.a;
       ctx.fillStyle=s.g?"#f6d887":"#fbf2d3";
-      ctx.beginPath();ctx.arc(x,y,s.r,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(s.x,y,s.r,0,Math.PI*2);ctx.fill();
     }
     ctx.globalAlpha=1;
     raf=requestAnimationFrame(draw);
