@@ -42,6 +42,8 @@
 
   let w=0,h=0,dpr=1,raf=0,last=0,scrollY=0;
   const stars=[];
+  const pointer={x:-9999,y:-9999,active:false};
+  const bursts=[];
   function resize(){
     dpr=Math.min(window.devicePixelRatio||1,1.25);
     w=window.innerWidth;h=window.innerHeight;
@@ -51,19 +53,53 @@
     stars.length=0;
     const count=w<700?320:520;
     const world=Math.max(h,document.documentElement.scrollHeight||h);
-    for(let i=0;i<count;i++)stars.push({x:Math.random()*w,y:Math.random()*world,r:.45+Math.random()*.9,a:.35+Math.random()*.55,g:Math.random()<.72});
+    for(let i=0;i<count;i++)stars.push({x:Math.random()*w,y:Math.random()*world,r:.45+Math.random()*.9,a:.35+Math.random()*.55,g:Math.random()<.72,t:Math.random()*6.28});
   }
+  function pointerMove(x,y){pointer.x=x;pointer.y=y;pointer.active=true}
+  window.addEventListener("mousemove",e=>pointerMove(e.clientX,e.clientY),{passive:true});
+  window.addEventListener("mouseleave",()=>{pointer.active=false;},{passive:true});
+  window.addEventListener("touchstart",e=>{
+    const p=e.touches&&e.touches[0];
+    if(p){pointerMove(p.clientX,p.clientY);bursts.push({x:p.clientX,y:p.clientY,life:1});}
+  },{passive:true});
+  window.addEventListener("touchmove",e=>{
+    const p=e.touches&&e.touches[0];
+    if(p)pointerMove(p.clientX,p.clientY);
+  },{passive:true});
+  window.addEventListener("touchend",()=>{pointer.active=false;},{passive:true});
+  window.addEventListener("click",e=>{
+    bursts.push({x:e.clientX,y:e.clientY,life:1});
+  },{passive:true});
   function draw(t){
     const dt=Math.min(40,Math.max(1,t-last||16));last=t;
     ctx.clearRect(0,0,w,h);
     for(const s of stars){
       s.x-=dt*.004;
       if(s.x<-3)s.x=w+3;
-      const y=s.y-scrollY;
+      let x=s.x,y=s.y-scrollY;
+      if(pointer.active){
+        const dx=x-pointer.x,dy=y-pointer.y,dist=Math.sqrt(dx*dx+dy*dy)||1;
+        const radius=150;
+        if(dist<radius){
+          const force=(1-dist/radius)*15;
+          x+=(dx/dist)*force;
+          y+=(dy/dist)*force;
+        }
+      }
       if(y<-3||y>h+3)continue;
-      ctx.globalAlpha=s.a;
+      ctx.globalAlpha=s.a*(.9+.1*Math.sin(t*.001+s.t));
       ctx.fillStyle=s.g?"#f6d887":"#fbf2d3";
-      ctx.beginPath();ctx.arc(s.x,y,s.r,0,Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(x,y,s.r,0,Math.PI*2);ctx.fill();
+    }
+    for(let i=bursts.length-1;i>=0;i--){
+      const b=bursts[i];
+      b.life-=dt*.0022;
+      if(b.life<=0){bursts.splice(i,1);continue;}
+      const radius=(1-b.life)*75;
+      ctx.globalAlpha=b.life*.3;
+      ctx.strokeStyle="#fff4cf";
+      ctx.lineWidth=1;
+      ctx.beginPath();ctx.arc(b.x,b.y,radius,0,Math.PI*2);ctx.stroke();
     }
     ctx.globalAlpha=1;
     raf=requestAnimationFrame(draw);
