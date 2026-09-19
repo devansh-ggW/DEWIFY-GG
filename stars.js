@@ -40,12 +40,8 @@
   const ctx=canvas.getContext("2d",{alpha:true});
   if(!ctx)return;
 
-  /* Interactive starfield: cursor creates a subtle local gravity/parallax
-     effect; touch works too. The canvas stays click-through so UI remains
-     fully interactive. */
   let w=0,h=0,dpr=1,raf=0,last=0,scrollY=0;
   const stars=[];
-  const pointer={x:-9999,y:-9999,tx:-9999,ty:-9999,active:false};
   function resize(){
     dpr=Math.min(window.devicePixelRatio||1,1.25);
     w=window.innerWidth;h=window.innerHeight;
@@ -55,43 +51,17 @@
     stars.length=0;
     const count=w<700?320:520;
     const world=Math.max(h,document.documentElement.scrollHeight||h);
-    for(let i=0;i<count;i++)stars.push({
-      x:Math.random()*w,y:Math.random()*world,r:.45+Math.random()*.9,
-      a:.35+Math.random()*.55,g:Math.random()<.72,seed:Math.random()*6.28
-    });
+    for(let i=0;i<count;i++)stars.push({x:Math.random()*w,y:Math.random()*world,r:.45+Math.random()*.9,a:.35+Math.random()*.55,g:Math.random()<.72});
   }
-  function setPointer(x,y){pointer.tx=x;pointer.ty=y;pointer.active=true}
-  function movePointer(x,y){setPointer(x,y)}
-  window.addEventListener("mousemove",e=>movePointer(e.clientX,e.clientY),{passive:true});
-  window.addEventListener("mouseleave",()=>{pointer.active=false;pointer.tx=-9999;pointer.ty=-9999},{passive:true});
-  window.addEventListener("touchmove",e=>{
-    const t=e.touches&&e.touches[0]; if(t)movePointer(t.clientX,t.clientY);
-  },{passive:true});
-  window.addEventListener("touchend",()=>{pointer.active=false},{passive:true});
   function draw(t){
     const dt=Math.min(40,Math.max(1,t-last||16));last=t;
-    pointer.x += (pointer.tx-pointer.x)*0.08;
-    pointer.y += (pointer.ty-pointer.y)*0.08;
     ctx.clearRect(0,0,w,h);
     for(const s of stars){
       s.x-=dt*.004;
       if(s.x<-3)s.x=w+3;
-      let y=s.y-scrollY, x=s.x;
-      if(pointer.active){
-        const dx=x-pointer.x,dy=y-pointer.y,dist=Math.sqrt(dx*dx+dy*dy)||1;
-        const radius=150;
-        if(dist<radius){
-          const force=(1-dist/radius)*12;
-          x += (dx/dist)*force;
-          y += (dy/dist)*force;
-        }
-        const parallaxX=(pointer.x-w/2)*0.006, parallaxY=(pointer.y-h/2)*0.003;
-        x += parallaxX;
-        y += parallaxY;
-      }
+      const y=s.y-scrollY;
       if(y<-3||y>h+3)continue;
-      const pulse=.88+.12*Math.sin(t*.001+s.seed);
-      ctx.globalAlpha=s.a*pulse;
+      ctx.globalAlpha=s.a;
       ctx.fillStyle=s.g?"#f6d887":"#fbf2d3";
       ctx.beginPath();ctx.arc(x,y,s.r,0,Math.PI*2);ctx.fill();
     }
